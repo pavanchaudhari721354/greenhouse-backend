@@ -73,6 +73,10 @@ def recommend_crop():
         ]
     })
 
+# ✅ Root route to verify deployment
+@app.route('/')
+def home():
+    return jsonify({"message": "Greenhouse Backend Server is Running ✅"})
 
 # ✅ Start Flask server
 if __name__ == '__main__':
