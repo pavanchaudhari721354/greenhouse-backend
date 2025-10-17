@@ -31,20 +31,18 @@ def get_latest():
 
 
 # ✅ 2. Route: Get history (generate dummy data)
-@app.route('/api/sensors/history', methods=['GET'])
-def get_history():
-    history = []
-    now = datetime.datetime.utcnow()
-    for i in range(10):  # last 10 readings (every 5 mins)
-        reading = {
-            "timestamp": (now - datetime.timedelta(minutes=i*5)).isoformat(),
-            "temperature": 25 + random.uniform(-2, 2),
-            "humidity": 60 + random.uniform(-5, 5),
-            "soil_moisture": 45 + random.uniform(-5, 5),
-            "light": 600 + random.uniform(-50, 50)
-        }
-        history.append(reading)
-    return jsonify(history[::-1])  # oldest first
+@app.route('/api/sensors/latest', methods=['GET'])
+def latest_sensor():
+    data = {
+        "zone_id": 1,
+        "timestamp": datetime.datetime.now().isoformat(),
+        "temperature": round(random.uniform(20, 30), 2),
+        "humidity": round(random.uniform(40, 70), 2),
+        "soil_moisture": round(random.uniform(30, 60), 2),
+        "light": round(random.uniform(400, 800), 2)
+    }
+    return jsonify(data)
+
 
 
 # ✅ 3. Route: Crop recommendation (simple rule-based)
